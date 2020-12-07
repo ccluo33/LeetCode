@@ -7,6 +7,12 @@
         "utility": "cpp",
         "cstdio": "cpp",
         "vector": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "string": "cpp",
+        "new": "cpp",
+        "deque": "cpp",
+        "algorithm": "cpp",
+        "ostream": "cpp",
+        "iostream": "cpp"
     }
 }

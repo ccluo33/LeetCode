@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
 /*
  * @lc app=leetcode.cn id=930 lang=cpp
  *
@@ -9,25 +8,26 @@ using namespace std;
  */
 
 // @lc code=start
-class Solution
-{
+class Solution {
 public:
-    int numSubarraysWithSum(vector<int> &A, int S) {
-        int i = 0, res = 0, sum = 0, temp = 0;
-        for (int j = 0; j < A.size(); j++) {
-            sum += A[j];
-            if (sum < S) {
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        int i = 0, j = 0;
+        int sum = 0, res = 0, temp = 0; 
+        for (int j = 0; j < nums.size(); j++) {
+            sum += nums[j];
+            if (sum < goal) {
                 continue;
             }
-            while (sum > S && i < j) {
-                sum -= A[i++];
+            while (sum > goal && i < j) {
+                sum -= nums[i];
+                i++;
             }
-            if (sum == S) {
+            if (sum == goal) {
                 res++;
             }
             temp = i;
-            while(temp < j && A[temp] == 0) {
-                 temp++;
+            while (temp < j && nums[temp] == 0) {
+                temp++;
                 res++;
             }
         }
@@ -35,3 +35,4 @@ public:
     }
 };
 // @lc code=end
+

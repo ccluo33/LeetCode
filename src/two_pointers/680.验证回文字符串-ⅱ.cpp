@@ -9,55 +9,26 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    int change;
     bool validPalindrome(string s) {
-        int i = 0, j = s.size()-1;
-        change = 0;
-        bool res = true;
-        while (i <= j) {
-            if (s[i] == s[j]) {
-                i++;
-                j--;
+        int l = 0, r = s.size() - 1;
+        while (l <= r) {
+            if (s[l] == s[r]) {
+                l++;
+                r--;
             } else {
-                bool can_move = judgeNewi_j(s, i, j);
-                if (can_move == false || change >= 2) {
-                    res = false;
-                    break;
-                }
+                return isValid(s, l+1, r) || isValid(s, l, r-1);
             }
-        }
-        return res;
-    }
-
-    bool judgeNewi_j(string s, int& i, int& j) {
-        int cnt = 1;
-        if ((i+2*cnt-1) < j) {
-            while ((i+2*cnt-1) < j) {
-                if (s[i+cnt-1] == s[j-cnt] && s[i+cnt] == s[j-cnt+1]) {
-                    cnt++;
-                    if (!((i+2*cnt-1) < j)) {
-                        i++;
-                        change++;
-                        break;
-                    }
-                } else if (s[i+cnt-1] == s[j-cnt]) {
-                    j--;
-                    change++;
-                    break;
-                } else if (s[i+cnt] == s[j-cnt+1]) {
-                    i++;
-                    change++;
-                    break;
-                } else {
-                    return false;
-                }
-            }
-        } else {
-            i++;
-            j--;
-            change++;
         }
         return true;
     }
+    bool isValid(string s, int l, int r) {
+        while (l <= r) {
+            if (s[l++] != s[r--]) {
+                return false;
+            }
+        }
+        return true;
+    }  
 };
 // @lc code=end
+

@@ -1,6 +1,9 @@
 {
     "files.associations": {
         "*.json": "jsonc",
+        "*.ejs": "html",
+        "*.js": "html",
+        "*.vue": "html",
         "array": "cpp",
         "string_view": "cpp",
         "initializer_list": "cpp",
@@ -13,6 +16,7 @@
         "deque": "cpp",
         "algorithm": "cpp",
         "ostream": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "*.tcc": "cpp"
     }
 }

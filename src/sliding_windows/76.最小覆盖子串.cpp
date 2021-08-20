@@ -1,7 +1,7 @@
 #include <iostream>
-#include <cstdio>
+#include <cstring>
+#include <vector>
 using namespace std;
-
 /*
  * @lc app=leetcode.cn id=76 lang=cpp
  *
@@ -12,50 +12,29 @@ using namespace std;
 class Solution {
 public:
     string minWindow(string s, string t) {
-        int sFreq[64] = { 0 }, tFreq[64] = { 0 };
+        vector<int> chars(128, 0);
+        vector<bool> flag(128, false);
         for (int i = 0; i < t.size(); i++) {
-            tFreq[t[i]-'A']++;
+            chars[t[i]]++;
+            flag[t[i]] = true;
         }
-        int l = 0, r = 0, i = 0;
-        string res = "";
-        if (s.size() < t.size()) {
-            return res;
-        }
-        sFreq[s[l]-'A']++;
-        while (r < s.size()) {
-            while (r - l + 1 < t.size()) {
-                r++;
-                sFreq[s[r]-'A']++;
+        int cnt = 0, l = 0, min_l = 0, min_size = s.size()+1;
+        for (int r = 0; r < s.size(); r++) {
+            if (--chars[s[r]] >= 0) {
+                cnt++;
             }
-            
-            i = 0;
-            while (i < 64) {
-                if (sFreq[i] < tFreq[i]) {
-                    break;
+            while (cnt == t.size()) {
+                if (r - l + 1 < min_size) {
+                    min_size = r - l + 1;
+                    min_l = l;
                 }
-                i++;
-            }
-
-            if (i == 64) {
-                if (res == "" || res.size() > r-l+1) {
-                    res = s.substr(l, r-l+1);
+                if (flag[s[l]] && ++chars[s[l]] > 0) {
+                    --cnt;
                 }
-                if (res.size() == t.size()) {
-                    break;
-                } else {
-                    sFreq[s[l]-'A']--;
-                    l++;
-                }
-            } else {
-                r++;
-                if (r < s.size()) {
-                    sFreq[s[r]-'A']++;
-                } else {
-                    break;
-                }
+                l++;
             }
         }
-        return res;
+        return min_size > s.size()? "": s.substr(min_l, min_size);
     }
 };
 // @lc code=end
